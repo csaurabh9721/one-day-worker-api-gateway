@@ -1,0 +1,44 @@
+server:
+  port: 8084
+
+spring:
+  application:
+    name: Api-Gateway
+  cloud:
+    gateway:
+      server:
+        webflux:
+          discovery:
+            locator:
+              enabled: true
+              lower-case-service-id: true
+          routes:
+            - id: user-service-user
+              uri: lb://User-Service
+              predicates:
+                - Path=/userService/**
+              filters:
+                - StripPrefix=0
+
+            - id: worker-service-worker
+              uri: lb://Worker-Service
+              predicates:
+                - Path=/workerService/**
+              filters:
+                - StripPrefix=0
+
+            - id: rating-service-rating
+              uri: lb://Rating-Service
+              predicates:
+                - Path=/ratingService/**
+              filters:
+                - StripPrefix=0
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8080/eureka/
+    fetch-registry: true
+    registry-with-eureka: true
+  instance:
+    prefer-ip-address: true
