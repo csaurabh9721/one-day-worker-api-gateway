@@ -38,7 +38,7 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8080/eureka/
-    fetch-registry: true
-    registry-with-eureka: true
+      fetch-registry: true
+      registry-with-eureka: true
   instance:
     prefer-ip-address: true
